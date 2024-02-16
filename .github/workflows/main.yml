@@ -32,6 +32,9 @@ jobs:
 
     - name: Extract Zip Contents
       run: unzip web-ext-artifacts/*.zip -d web-ext-artifacts/
+      
+    - name: Remove old zip
+      run: rm web-ext-artifacts/*.zip
 
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
