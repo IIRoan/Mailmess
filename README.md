@@ -1,17 +1,17 @@
-# MailMess Extension
+<div style="display:flex;">
+    <img src="https://github.com/IIRoan/Mailmess/blob/0.1/public/logo192.png?raw=true" alt="Logo" style="width:30%;">
+    <img src="https://github.com/IIRoan/Mailmess/blob/0.1/public/screenshot.png?raw=true" alt="Screenshot" style="width:40%;">
+</div>
+
+# MailMess Extension 
 
 Mail Extension is a browser extension that automatically generates email aliases for the website you are currently on.  You can use email maskers and relays such as Firefox Relay, Addy.io or SimpleLogin
+
 
 ## Features
 
 - **Easy**: Quickly generate a new email for each website
 - **Customizable**: Choose if you want to add random string to a catch all adress
-
-
-## Installation
-
-You can install the extension here:
-Firefox Store link
 
 ## Usage
 
@@ -22,16 +22,29 @@ After installing the extension, you can start using it by:
 3. Optionally, enabling the feature to add a random string to the email address for privacy.
 4. Copying the generated email address to your clipboard with a click.
 
+## Development environment
 
+Clone the Repository:
 
+   ```bash
+   git clone https://github.com/IIRoan/Mailmess.git
+   ```
 
+Install Dependencies:
+
+```bash
+cd Mailmess
+npm install
+```
+
+Start the Development Server:
+
+```bash
+npm start
+```
 ## Contributing
 
 We welcome contributions from the community. If you would like to contribute, please fork the repository, make your changes, and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
