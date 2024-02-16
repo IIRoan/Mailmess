@@ -35,12 +35,25 @@ function EmailGenerator() {
             domainAndSubdomain = `@${matches[1]}.${matches[2]}`;
         }
 
-        // Store the domain and subdomain part in local storage
-        localStorage.setItem('emailSuffix', domainAndSubdomain);
-
-        // Update the full email state with the current domain and the stored domain and subdomain part
+        // Validate the email before saving
         const fullEmail = `${window.location.hostname}${domainAndSubdomain}`;
-        setGeneratedEmail(fullEmail);
+        if (validateEmail(fullEmail)) {
+            // Store the domain and subdomain part in local storage
+            localStorage.setItem('emailSuffix', domainAndSubdomain);
+
+            // Update the full email state with the current domain and the stored domain and subdomain part
+            setGeneratedEmail(fullEmail);
+        } else {
+            // Optionally, notify the user that the email is invalid
+            alert('The email is not valid. Please enter a valid email suffix.');
+        }
+    };
+
+    // Helper function to validate the email
+    const validateEmail = (email: string) => {
+        // Simple regex for email validation
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        return emailRegex.test(email);
     };
 
     // Helper function to generate a random alphanumeric string
@@ -56,8 +69,13 @@ function EmailGenerator() {
     const emailInputRef = useRef(null);
 
     // Function to copy the generated email to clipboard
-    const copyGeneratedEmailToClipboard = () => {
-        navigator.clipboard.writeText(generatedEmail);
+    const copyGeneratedEmailToClipboard = async () => {
+        try {
+            await navigator.clipboard.writeText(generatedEmail);
+        } catch (error) {
+            // Handle the error appropriately, or you can log it
+            console.error('Error copying email to clipboard:', error);
+        }
     };
 
     return (
