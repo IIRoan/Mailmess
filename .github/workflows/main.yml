@@ -39,5 +39,5 @@ jobs:
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: firefox-extension
+        name: MailMess1.12
         path: web-ext-artifacts/
