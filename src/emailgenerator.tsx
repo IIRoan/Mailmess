@@ -4,7 +4,12 @@ import './styles.css';
 
 function EmailGenerator() {
     // State to track if the random string toggle is on
-    const [isRandomStringEnabled, setIsRandomStringEnabled] = useState(false);
+    const [isRandomStringEnabled, setIsRandomStringEnabled] = useState(() => {
+        // Load the toggle state from localStorage when the component mounts
+        const savedToggleState = localStorage.getItem('isRandomStringEnabled');
+        return savedToggleState ? JSON.parse(savedToggleState) : false;
+    });
+
     // State to hold the email suffix entered by the user
     const [emailSuffix, setEmailSuffix] = useState('');
     // State to hold the complete generated email
@@ -22,7 +27,7 @@ function EmailGenerator() {
                     if (tabs[0] && tabs[0].url) {
                         const url = new URL(tabs[0].url);
                         // Use a regex to match and capture the second-level domain
-                        const domainRegex = /^(?:[\w-]+\.)+([\w-]+)\.(?:[a-z]{2,}\.)?(?:[a-z]{2,})$/;
+                        const domainRegex = /^(?:[\w-]+\.)*([\w-]+)\.(?:[a-z]{2,}\.)?(?:[a-z]{2,})$/;
                         const match = url.hostname.match(domainRegex);
                         if (match && match[1]) {
                             domain = match[1]; // This will be the second-level domain
@@ -35,14 +40,8 @@ function EmailGenerator() {
                 });
             }
         }
+        localStorage.setItem('isRandomStringEnabled', JSON.stringify(isRandomStringEnabled));
     }, [isRandomStringEnabled]);
-    
-    
-    
-
-    
-
-    
 
     // Handler for changes in the email suffix input field
     const handleEmailSuffixChange = (event: React.ChangeEvent<HTMLInputElement>) => {
