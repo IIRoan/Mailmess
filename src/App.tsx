@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Skiff from './skiff'
-import { AppThemeProvider } from '@skiff-org/skiff-ui';
+import EmailGenerator from './emailgenerator'
 import Footer from './footer'
+import { AppThemeProvider } from '@skiff-org/skiff-ui';
+
 
 function App() {
   return (
     <AppThemeProvider>
-      <Skiff />
+      <EmailGenerator />
       <Footer />
     </AppThemeProvider>
   );

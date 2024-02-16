@@ -8,11 +8,10 @@ body{
     background-color: rgb(39, 37, 37);
 }
 
-.mainbody{
-  margin-bottom: 10px;
-}
+/* Main content */
+
 h1{
-  color: #fff;
+  color: #ccc;
 }
 
 .input-container {
@@ -20,6 +19,21 @@ h1{
   align-items: center;
   justify-content: space-between; 
   margin-bottom:  10px; 
+}
+.mainbody{
+  margin-bottom: 5px;
+}
+
+/*Toggle  the strings*/
+.toggle {
+  display: flex;
+  align-items: center;
+}
+
+.toggle span{
+  color: #ccc;
+  font-size:  12px;
+  margin-left: 5px;
 }
 
 
