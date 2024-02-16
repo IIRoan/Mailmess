@@ -23,7 +23,20 @@ h1 {
   margin-bottom: 5px;
 }
 
-/*Toggle  the strings*/
+
+
+
+/* Error message */
+
+
+.error-message{
+  color: red;
+  font-size: 12px;
+  margin-top: -1em;
+}
+
+
+/*Toggle button for extra strings*/
 .toggle {
   display: flex;
   align-items: center;

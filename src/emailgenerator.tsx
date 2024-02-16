@@ -16,6 +16,9 @@ function EmailGenerator() {
         return savedToggleState ? JSON.parse(savedToggleState) : false;
     });
 
+
+    // State to hold the error message underneath input
+    const [errorMessage, setErrorMessage] = useState("");
     // State to hold the email suffix entered by the user
     const [emailSuffix, setEmailSuffix] = useState("");
     // State to hold the complete generated email
@@ -83,8 +86,9 @@ function EmailGenerator() {
     // Handler for changes in the email suffix input field
     const handleEmailSuffixChange = (
         event: React.ChangeEvent<HTMLInputElement>,
-    ) => {
+) => {
         setEmailSuffix(event.target.value);
+        setErrorMessage("");
     };
 
     // Function to save the email when the button is clicked
@@ -106,7 +110,7 @@ function EmailGenerator() {
             setGeneratedEmail(fullEmail);
         } else {
             // Optionally, notify the user that the email is invalid
-            alert("The email is not valid. Please enter a valid email suffix.");
+            setErrorMessage("Invalid E-Mail suffix")
         }
     };
 
@@ -141,6 +145,7 @@ function EmailGenerator() {
                         onClick={saveGeneratedEmail}
                     />
                 </div>
+                {errorMessage && <div className="error-message">{errorMessage}</div>}
 
                 <div className="input-container">
                     <InputField
