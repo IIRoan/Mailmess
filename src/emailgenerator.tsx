@@ -15,11 +15,34 @@ function EmailGenerator() {
         const storedSuffix = localStorage.getItem('emailSuffix');
         if (storedSuffix) {
             setEmailSuffix(storedSuffix);
-            const domain = window.location.hostname;
-            const randomSuffix = isRandomStringEnabled ? `-${generateRandomString(5)}` : '';
-            setGeneratedEmail(`${domain}${randomSuffix}${storedSuffix}`);
+            let domain = '';
+            // Check if the code is running in a browser environment
+            if (typeof browser !== 'undefined' && browser.tabs) {
+                browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+                    if (tabs[0] && tabs[0].url) {
+                        const url = new URL(tabs[0].url);
+                        // Use a regex to match and capture the second-level domain
+                        const domainRegex = /^(?:[\w-]+\.)+([\w-]+)\.(?:[a-z]{2,}\.)?(?:[a-z]{2,})$/;
+                        const match = url.hostname.match(domainRegex);
+                        if (match && match[1]) {
+                            domain = match[1]; // This will be the second-level domain
+                        }
+                        const randomSuffix = isRandomStringEnabled ? `-${generateRandomString(5)}` : '';
+                        setGeneratedEmail(`${domain}${randomSuffix}${storedSuffix}`);
+                    }
+                }).catch((error) => {
+                    console.error('Error getting current tab:', error);
+                });
+            }
         }
     }, [isRandomStringEnabled]);
+    
+    
+    
+
+    
+
+    
 
     // Handler for changes in the email suffix input field
     const handleEmailSuffixChange = (event: React.ChangeEvent<HTMLInputElement>) => {
