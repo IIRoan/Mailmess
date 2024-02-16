@@ -5,7 +5,7 @@
 
 # MailMess Extension 
 
-Mail Extension is a browser extension that automatically generates email aliases for the website you are currently on.  You can use email maskers and relays such as Firefox Relay, Addy.io or SimpleLogin
+MailMess is a browser extension that automatically generates email aliases for the website you are currently on.  You can use email maskers and relays such as Firefox Relay, Addy.io or SimpleLogin
 
 
 ## Features
