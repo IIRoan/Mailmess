@@ -32,13 +32,13 @@ function EmailGenerator() {
         browser.tabs
           .query({ active: true, currentWindow: true })
           .then((tabs) => {
-            if (tabs[0] && tabs[0].url) {
+            if (tabs[0]?.url) {
               const url = new URL(tabs[0].url);
               // Use a regex to match and capture the second-level domain
               const domainRegex =
                 /^(?:[\w-]+\.)*([\w-]+)\.(?:[a-z]{2,}\.)?(?:[a-z]{2,})$/;
               const match = url.hostname.match(domainRegex);
-              if (match && match[1]) {
+              if (match?.[1]) {
                 domain = match[1]; // This will be the second-level domain
               }
               const randomSuffix = isRandomStringEnabled
