@@ -1,6 +1,6 @@
 <div style="display:flex;">
-    <img src="https://github.com/IIRoan/Mailmess/blob/0.1/public/logo192.png?raw=true" alt="Logo" style="width:30%;">
-    <img src="https://github.com/IIRoan/Mailmess/blob/0.1/public/screenshot.png?raw=true" alt="Screenshot" style="width:40%;">
+    <img src="https://github.com/IIRoan/Mailmess/blob/main/public/logo192.png?raw=true" alt="Logo" style="width:30%;">
+    <img src="https://github.com/IIRoan/Mailmess/blob/main/public/screenshot.png?raw=true" alt="Screenshot" style="width:40%;">
 </div>
 
 # MailMess Extension 
