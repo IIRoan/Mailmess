@@ -1,7 +1,6 @@
+# MailMess Extension
 
-# MailMess Extension 
 ## Development environment
-
 
 Using NPM you need to install the dependencies
 
