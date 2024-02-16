@@ -1,4 +1,4 @@
-name: Build Firefox Extension
+name: Build and Package Firefox Extension
 
 on:
   push:
@@ -17,12 +17,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version:   14
-        cache: 'npm'
-    
-    - name: Downgrade npm
-      run: npm install -g npm@5.2.0
-    
-    - name: Install dependencies
+
+    - name: Install Dependencies
       run: npm install
 
     - name: Build React App
