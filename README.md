@@ -9,7 +9,7 @@ MailMess is a browser extension that automatically generates email aliases for t
 
 
 <a href="https://addons.mozilla.org/en-US/firefox/addon/mailmess/">
-  <img src="public/media/badge.png" alt="Download on addons store"></img>
+  <img src="public/badge.png" alt="Download on addons store"></img>
 </a>
 
 
