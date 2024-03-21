@@ -9,6 +9,23 @@ function EmailGenerator() {
     const [emailSuffix, setEmailSuffix] = useState('');
     // State to hold the complete generated email
     const [generatedEmail, setGeneratedEmail] = useState('');
+    // State to hold if generated email is copied
+    const [isCopied, setIsCopied] = useState(false);
+    // State to change copy icon
+    const [animationTrigger, setAnimationTrigger] = useState(false);
+    const [icon, setIcon] = useState(Icon.Copy);
+
+    // Effect hook to change icon on copy generated email
+    useEffect(() => {
+        if (animationTrigger) {
+            setIcon(Icon.Check);
+            setTimeout(() => {
+                setIcon(Icon.Copy);
+                setAnimationTrigger(false); // Reset the trigger for the next click
+                setIsCopied(false) // Reset the IsCopied for the next click
+            }, 1000); // Reset after 1 second
+        }
+    }, [animationTrigger]);
 
     // Effect hook to load previously stored email suffix and generate the email
     useEffect(() => {
@@ -72,11 +89,13 @@ function EmailGenerator() {
     const copyGeneratedEmailToClipboard = async () => {
         try {
             await navigator.clipboard.writeText(generatedEmail);
+            setAnimationTrigger(true); // Trigger the animation
+            setIsCopied(true);
         } catch (error) {
-            // Handle the error appropriately, or you can log it
             console.error('Error copying email to clipboard:', error);
         }
     };
+
 
     return (
         <>
@@ -101,7 +120,13 @@ function EmailGenerator() {
                         readOnly
                         ref={emailInputRef}
                     />
-                    <IconButton icon={Icon.Copy} size={Size.SMALL} onClick={copyGeneratedEmailToClipboard} />
+                    <IconButton
+                        icon={icon}
+                        size={Size.SMALL}
+                        onClick={copyGeneratedEmailToClipboard}
+                        className={isCopied ? 'copied' : ''}
+                    />
+
                 </div>
 
                 <div className='toggle'>
