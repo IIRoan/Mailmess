@@ -1,12 +1,15 @@
 <div style="display:flex;">
-    <img src="https://github.com/IIRoan/Mailmess/blob/0.1/public/logo192.png?raw=true" alt="Logo" style="width:30%;">
-    <img src="https://github.com/IIRoan/Mailmess/blob/0.1/public/screenshot.png?raw=true" alt="Screenshot" style="width:40%;">
+    <img src="https://github.com/IIRoan/Mailmess/blob/main/public/logo192.png?raw=true" alt="Logo" style="width:30%;">
+    <img src="https://github.com/IIRoan/Mailmess/blob/main/public/screenshot.png?raw=true" alt="Screenshot" style="width:40%;">
 </div>
 
-# MailMess Extension 
+# MailMess Extension
 
-Mail Extension is a browser extension that automatically generates email aliases for the website you are currently on.  You can use email maskers and relays such as Firefox Relay, Addy.io or SimpleLogin
+MailMess is a browser extension that automatically generates email aliases for the website you are currently on. You can use email maskers and relays such as Firefox Relay, Addy.io or SimpleLogin
 
+<a href="https://addons.mozilla.org/en-US/firefox/addon/mailmess/">
+  <img src="public/badge.png" alt="Download on addons store"></img>
+</a>
 
 ## Features
 
@@ -26,9 +29,9 @@ After installing the extension, you can start using it by:
 
 Clone the Repository:
 
-   ```bash
-   git clone https://github.com/IIRoan/Mailmess.git
-   ```
+```bash
+git clone https://github.com/IIRoan/Mailmess.git
+```
 
 Install Dependencies:
 
@@ -42,6 +45,7 @@ Start the Development Server:
 ```bash
 npm start
 ```
+
 ## Contributing
 
 We welcome contributions from the community. If you would like to contribute, please fork the repository, make your changes, and submit a pull request.

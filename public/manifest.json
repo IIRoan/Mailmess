@@ -1,7 +1,7 @@
 {
   "manifest_version":  2,
   "name": "MailMess",
-  "version": "1.0",
+  "version": "1.12",
   "description": "MailMess - A firefox extension for generating masked emails",
   "icons": {
     "192": "logo192.png",
@@ -11,5 +11,12 @@
     "default_popup": "index.html",
     "default_title": "MailMess"
   },
-  "permissions": []
+  "permissions": [
+    "tabs"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{bc860d9f-a21a-4b3a-815a-162cb848badb}"
+    }
+  }
 }

@@ -1,51 +1,57 @@
 * {
-    text-align: center;
-    font-family: 'Cascadia Code', sans-serif;
-  }
+  text-align: center;
+  font-family: "Cascadia Code", sans-serif;
+}
 
-
-body{
-    background-color: rgb(39, 37, 37);
+body {
+  background-color: rgb(39, 37, 37);
 }
 
 /* Main content */
 
-h1{
+h1 {
   color: #ccc;
 }
 
 .input-container {
   display: flex;
   align-items: center;
-  justify-content: space-between; 
-  margin-bottom:  10px; 
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
-.mainbody{
+.mainbody {
   margin-bottom: 5px;
 }
 
-/*Toggle  the strings*/
+/* Error message */
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: -1em;
+}
+
+/*Toggle button for extra strings*/
 .toggle {
   display: flex;
   align-items: center;
 }
 
-.toggle span{
+.toggle span {
   color: #ccc;
-  font-size:  12px;
+  font-size: 12px;
   margin-left: 5px;
 }
-
 
 /*Footer */
 .footer {
   display: flex;
   justify-content: space-between;
-  padding:  1rem; 
-  position: relative; 
-  bottom:  0;
-  left:  0;
-  right:  0;
+  padding: 1rem;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 /* Copy animation */

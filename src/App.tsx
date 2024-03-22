@@ -1,7 +1,6 @@
-import EmailGenerator from './emailgenerator'
-import Footer from './footer'
-import { AppThemeProvider } from '@skiff-org/skiff-ui';
-
+import EmailGenerator from "./emailgenerator";
+import Footer from "./footer";
+import { AppThemeProvider } from "@skiff-org/skiff-ui";
 
 function App() {
   return (
@@ -11,4 +10,4 @@ function App() {
     </AppThemeProvider>
   );
 }
-export default App
+export default App;

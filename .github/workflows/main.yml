@@ -1,0 +1,41 @@
+name: Build and Package Firefox Extension
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version:   14
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build React App
+      run: npm run build
+
+    - name: Install web-ext
+      run: npm install --global web-ext
+
+    - name: Build Firefox Extension
+      run: web-ext build --source-dir build
+
+    - name: Extract Zip Contents
+      run: unzip web-ext-artifacts/*.zip -d web-ext-artifacts/
+      
+    - name: Remove old zip
+      run: rm web-ext-artifacts/*.zip
+
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: MailMess1.12
+        path: web-ext-artifacts/
