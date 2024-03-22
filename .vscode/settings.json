@@ -1,0 +1,17 @@
+{
+    "actionButtons": {
+
+        "commands": [
+            {
+                "name": "Build and Run",
+                "command": "npm run build-and-run",
+                "color": "yellow",
+                "singleInstance": true
+            }
+        ],
+        "defaultColor": "white",
+        "reloadButton": "♻️",
+        "loadNpmCommands": false
+    }
+    
+}

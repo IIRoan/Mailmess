@@ -14,7 +14,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-and-run": "npm run build && cd build && web-ext run --browser-console"
   },
   "eslintConfig": {
     "extends": [
@@ -35,6 +36,7 @@
     ]
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.263",
     "@types/firefox-webext-browser": "^120.0.0",
     "@types/nodemailer": "^6.4.14",
     "browserify-zlib": "^0.2.0",
