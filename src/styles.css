@@ -56,11 +56,17 @@ h1 {
 
 /* Copy animation */
 @keyframes copiedAnimation {
-  0% { background-color: #fff; }
-  50% { background-color: #4CAF50; }
-  100% { background-color: #fff; }
+  0% {
+    background-color: #fff;
+  }
+  50% {
+    background-color: #4caf50;
+  }
+  100% {
+    background-color: #fff;
+  }
 }
 
 .copied {
- animation: copiedAnimation 1s;
+  animation: copiedAnimation 1s;
 }
