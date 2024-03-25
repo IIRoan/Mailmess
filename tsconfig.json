@@ -22,7 +22,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["firefox-webext-browser"]
+    "types": ["firefox-webext-browser", "chrome"]
   },
   "include": [
     "src/**/*"

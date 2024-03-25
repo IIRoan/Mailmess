@@ -6,9 +6,9 @@ function EmailGenerator() {
     console.log("Main file Loaded")
     // State to track if the random string toggle is on
     const [isRandomStringEnabled, setIsRandomStringEnabled] = useState(() => {
-      const savedToggleState = localStorage.getItem('isRandomStringEnabled');
-      return savedToggleState ? JSON.parse(savedToggleState) : false;
-  });    
+        const savedToggleState = localStorage.getItem('isRandomStringEnabled');
+        return savedToggleState ? JSON.parse(savedToggleState) : false;
+    });
     // State to hold the email suffix entered by the user
     const [emailSuffix, setEmailSuffix] = useState('');
     // State to hold the complete generated email
@@ -24,9 +24,9 @@ function EmailGenerator() {
 
     // Effect hook to update local storage when the toggle state changes
     useEffect(() => {
-          localStorage.setItem('isRandomStringEnabled', JSON.stringify(isRandomStringEnabled));
+        localStorage.setItem('isRandomStringEnabled', JSON.stringify(isRandomStringEnabled));
     }, [isRandomStringEnabled]);
-    
+
     // Effect hook to change icon on copy generated email
     useEffect(() => {
         if (animationTrigger) {
@@ -154,3 +154,4 @@ function EmailGenerator() {
 }
 
 export default EmailGenerator;
+

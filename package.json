@@ -11,11 +11,11 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "build-and-run": "npm run build && cd build && web-ext run --browser-console"
+    "build-and-run": "npm run build && cd dist && web-ext run --browser-console"
   },
   "eslintConfig": {
     "extends": [
