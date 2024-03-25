@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { InputField, Toggle, IconButton, Icon, Size } from '@skiff-org/skiff-ui';
 import './styles.css';
 
 function EmailGenerator() {
-    console.log("Main file Loaded")
+    console.log("Main file Loaded");
+    // State to track the current tab's domain
+    const [domain, setDomain] = useState('');
     // State to track if the random string toggle is on
     const [isRandomStringEnabled, setIsRandomStringEnabled] = useState(() => {
         const savedToggleState = localStorage.getItem('isRandomStringEnabled');
@@ -20,7 +22,6 @@ function EmailGenerator() {
     const [icon, setIcon] = useState(Icon.Copy);
     // State to hold the error message underneath input
     const [errorMessage, setErrorMessage] = useState("");
-
 
     // Effect hook to update local storage when the toggle state changes
     useEffect(() => {
@@ -44,11 +45,31 @@ function EmailGenerator() {
         const storedSuffix = localStorage.getItem('emailSuffix');
         if (storedSuffix) {
             setEmailSuffix(storedSuffix);
-            const domain = window.location.hostname;
             const randomSuffix = isRandomStringEnabled ? `-${generateRandomString(5)}` : '';
             setGeneratedEmail(`${domain}${randomSuffix}${storedSuffix}`);
         }
-    }, [isRandomStringEnabled]);
+    }, [isRandomStringEnabled, domain]);
+
+    // Function to get the hostname of the currently active tab
+    const getActiveTabHostname = () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            if (tabs.length > 0 && tabs[0].url) {
+                const parsedUrl = new URL(tabs[0].url);
+                let hostname = parsedUrl.hostname;
+            
+                // Attempt to extract the main part of the domain
+                const domainParts = hostname.split('.');
+                let mainPart = domainParts.slice(-2, -1)[0]; // This attempts to get the second last part of the domain
+            
+                // This simple approach has limitations and may not work correctly for all domain structures
+                setDomain(mainPart);
+            }
+        });
+    };
+    // Call getActiveTabHostname when the component mounts
+    useEffect(() => {
+        getActiveTabHostname();
+    }, []);
 
     // Handler for changes in the email suffix input field
     const handleEmailSuffixChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,23 +86,17 @@ function EmailGenerator() {
             domainAndSubdomain = `@${matches[1]}.${matches[2]}`;
         }
 
-        // Validate the email before saving
-        const fullEmail = `${window.location.hostname}${domainAndSubdomain}`;
+        const fullEmail = `${domain}${domainAndSubdomain}`;
         if (validateEmail(fullEmail)) {
-            // Store the domain and subdomain part in local storage
             localStorage.setItem('emailSuffix', domainAndSubdomain);
-
-            // Update the full email state with the current domain and the stored domain and subdomain part
             setGeneratedEmail(fullEmail);
         } else {
-            // Optionally, notify the user that the email is invalid
             setErrorMessage("Invalid E-Mail suffix");
         }
     };
 
     // Helper function to validate the email
     const validateEmail = (email: string) => {
-        // Simple regex for email validation
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
         return emailRegex.test(email);
     };
@@ -95,8 +110,6 @@ function EmailGenerator() {
         }
         return text;
     };
-
-    const emailInputRef = useRef(null);
 
     // Function to copy the generated email to clipboard
     const copyGeneratedEmailToClipboard = async () => {
@@ -131,7 +144,6 @@ function EmailGenerator() {
                         placeholder='Generated email'
                         value={generatedEmail}
                         readOnly
-                        ref={emailInputRef}
                     />
                     <IconButton
                         icon={icon}
@@ -146,7 +158,7 @@ function EmailGenerator() {
                         checked={isRandomStringEnabled}
                         onChange={() => setIsRandomStringEnabled(!isRandomStringEnabled)}
                     />
-                    <span>Add  5 random letters/numbers after domain</span>
+                    <span>Add 5 random letters/numbers after domain</span>
                 </div>
             </header>
         </>
@@ -154,4 +166,3 @@ function EmailGenerator() {
 }
 
 export default EmailGenerator;
-
