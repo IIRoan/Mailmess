@@ -6,6 +6,9 @@
       "dom.iterable",
       "esnext"
     ],
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -19,9 +22,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["firefox-webext-browser"]
+    "types": ["firefox-webext-browser", "chrome"]
   },
   "include": [
-    "src"
+    "src/**/*"
   ]
 }

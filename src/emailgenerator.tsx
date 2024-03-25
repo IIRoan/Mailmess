@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   InputField,
   Toggle,
@@ -9,19 +9,110 @@ import {
 import "./styles.css";
 
 function EmailGenerator() {
+  console.log("Main file Loaded");
+  // State to track the current tab's domain
+  const [domain, setDomain] = useState("");
   // State to track if the random string toggle is on
   const [isRandomStringEnabled, setIsRandomStringEnabled] = useState(() => {
-    // Load the toggle state from localStorage when the component mounts
     const savedToggleState = localStorage.getItem("isRandomStringEnabled");
     return savedToggleState ? JSON.parse(savedToggleState) : false;
   });
-
-  // State to hold the error message underneath input
-  const [errorMessage, setErrorMessage] = useState("");
   // State to hold the email suffix entered by the user
   const [emailSuffix, setEmailSuffix] = useState("");
   // State to hold the complete generated email
   const [generatedEmail, setGeneratedEmail] = useState("");
+  // State to hold if generated email is copied
+  const [isCopied, setIsCopied] = useState(false);
+  // State to change copy icon
+  const [animationTrigger, setAnimationTrigger] = useState(false);
+  const [icon, setIcon] = useState(Icon.Copy);
+  // State to hold the error message underneath input
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Effect hook to update local storage when the toggle state changes
+  useEffect(() => {
+    localStorage.setItem(
+      "isRandomStringEnabled",
+      JSON.stringify(isRandomStringEnabled),
+    );
+  }, [isRandomStringEnabled]);
+
+  // Effect hook to change icon on copy generated email
+  useEffect(() => {
+    if (animationTrigger) {
+      setIcon(Icon.Check);
+      setTimeout(() => {
+        setIcon(Icon.Copy);
+        setAnimationTrigger(false); // Reset the trigger for the next click
+        setIsCopied(false); // Reset the IsCopied for the next click
+      }, 1000); // Reset after 1 second
+    }
+  }, [animationTrigger]);
+
+  // Effect hook to load previously stored email suffix and generate the email
+  useEffect(() => {
+    const storedSuffix = localStorage.getItem("emailSuffix");
+    if (storedSuffix) {
+      setEmailSuffix(storedSuffix);
+      const randomSuffix = isRandomStringEnabled
+        ? `-${generateRandomString(5)}`
+        : "";
+      setGeneratedEmail(`${domain}${randomSuffix}${storedSuffix}`);
+    }
+  }, [isRandomStringEnabled, domain]);
+
+  // Function to get the hostname of the currently active tab
+  const getActiveTabHostname = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs.length > 0 && tabs[0].url) {
+        const parsedUrl = new URL(tabs[0].url);
+        let hostname = parsedUrl.hostname;
+
+        // Attempt to extract the main part of the domain
+        const domainParts = hostname.split(".");
+        let mainPart = domainParts.slice(-2, -1)[0]; // This attempts to get the second last part of the domain
+
+        // This simple approach has limitations and may not work correctly for all domain structures
+        setDomain(mainPart);
+      }
+    });
+  };
+  // Call getActiveTabHostname when the component mounts
+  useEffect(() => {
+    getActiveTabHostname();
+  }, []);
+
+  // Handler for changes in the email suffix input field
+  const handleEmailSuffixChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setEmailSuffix(event.target.value);
+    setErrorMessage(""); // Clear error message on input change
+  };
+
+  // Function to save the email when the button is clicked
+  const saveGeneratedEmail = () => {
+    const domainPartRegex = /@([^.]+)\.(.*)/;
+    const matches = emailSuffix.match(domainPartRegex);
+    let domainAndSubdomain = "";
+    if (matches && matches.length >= 3) {
+      domainAndSubdomain = `@${matches[1]}.${matches[2]}`;
+    }
+
+    const fullEmail = `${domain}${domainAndSubdomain}`;
+    if (validateEmail(fullEmail)) {
+      localStorage.setItem("emailSuffix", domainAndSubdomain);
+      setGeneratedEmail(fullEmail);
+    } else {
+      setErrorMessage("Invalid E-Mail suffix");
+    }
+  };
+
+  // Helper function to validate the email
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    return emailRegex.test(email);
+  };
 
   // Helper function to generate a random alphanumeric string
   const generateRandomString = (length: number) => {
@@ -36,89 +127,13 @@ function EmailGenerator() {
     return text;
   };
 
-  // Helper function to validate the email
-  const validateEmail = (email: string) => {
-    // Simple regex for email validation
-    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-    return emailRegex.test(email);
-  };
-
-  // Effect hook to load previously stored email suffix and generate the email
-  useEffect(() => {
-    const storedSuffix = localStorage.getItem("emailSuffix");
-    if (storedSuffix) {
-      setEmailSuffix(storedSuffix);
-      let domain = "";
-      // Check if the code is running in a browser environment
-      if (typeof browser !== "undefined" && browser.tabs) {
-        browser.tabs
-          .query({ active: true, currentWindow: true })
-          .then((tabs) => {
-            if (tabs[0]?.url) {
-              const url = new URL(tabs[0].url);
-              // Use a regex to match and capture the second-level domain
-              const domainRegex =
-                /^(?:[\w-]+\.)*([\w-]+)\.(?:[a-z]{2,}\.)?(?:[a-z]{2,})$/;
-              const match = url.hostname.match(domainRegex);
-              if (match?.[1]) {
-                domain = match[1]; // This will be the second-level domain
-              }
-              const randomSuffix = isRandomStringEnabled
-                ? `-${generateRandomString(5)}`
-                : "";
-              setGeneratedEmail(`${domain}${randomSuffix}${storedSuffix}`);
-            }
-          })
-          .catch((error) => {
-            console.error("Error getting current tab:", error);
-          });
-      }
-    }
-    localStorage.setItem(
-      "isRandomStringEnabled",
-      JSON.stringify(isRandomStringEnabled),
-    );
-  }, [isRandomStringEnabled]);
-
-  // Handler for changes in the email suffix input field
-  const handleEmailSuffixChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setEmailSuffix(event.target.value);
-    setErrorMessage("");
-  };
-
-  // Function to save the email when the button is clicked
-  const saveGeneratedEmail = () => {
-    const domainPartRegex = /@([^.]+)\.(.*)/;
-    const matches = emailSuffix.match(domainPartRegex);
-    let domainAndSubdomain = "";
-    if (matches && matches.length >= 3) {
-      domainAndSubdomain = `@${matches[1]}.${matches[2]}`;
-    }
-
-    // Validate the email before saving
-    const fullEmail = `${window.location.hostname}${domainAndSubdomain}`;
-    if (validateEmail(fullEmail)) {
-      // Store the domain and subdomain part in local storage
-      localStorage.setItem("emailSuffix", domainAndSubdomain);
-
-      // Update the full email state with the current domain and the stored domain and subdomain part
-      setGeneratedEmail(fullEmail);
-    } else {
-      // Optionally, notify the user that the email is invalid
-      setErrorMessage("Invalid E-Mail suffix");
-    }
-  };
-
-  const emailInputRef = useRef(null);
-
   // Function to copy the generated email to clipboard
   const copyGeneratedEmailToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(generatedEmail);
+      setAnimationTrigger(true); // Trigger the animation
+      setIsCopied(true);
     } catch (error) {
-      // Handle the error appropriately, or you can log it
       console.error("Error copying email to clipboard:", error);
     }
   };
@@ -149,12 +164,12 @@ function EmailGenerator() {
             placeholder="Generated email"
             value={generatedEmail}
             readOnly
-            ref={emailInputRef}
           />
           <IconButton
-            icon={Icon.Copy}
+            icon={icon}
             size={Size.SMALL}
             onClick={copyGeneratedEmailToClipboard}
+            className={isCopied ? "copied" : ""}
           />
         </div>
 
