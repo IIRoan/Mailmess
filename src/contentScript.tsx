@@ -4,7 +4,7 @@ function modifyEmailInputs() {
     observer.disconnect();
 
     // Find all email input fields
-    const emailFields = document.querySelectorAll('input[type="email"]');
+    const emailFields = document.querySelectorAll('input[type="email"], [aria-label="email"]');
 
     emailFields.forEach((emailField: Element) => {
         // Assert the type of emailField to HTMLInputElement
@@ -33,9 +33,7 @@ function modifyEmailInputs() {
         // Modify the click event listener for the image
         img.addEventListener('click', () => {
             // Send a message to the background script to generate an email
-            console.log("Button clicked")
             chrome.runtime.sendMessage({ action: 'generateEmail' }, response => {
-                console.log("Message send")
                 if (response && response.email) {
                     inputField.value = response.email;
                 }

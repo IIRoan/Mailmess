@@ -40,7 +40,6 @@ function generateEmail() {
 
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    console.log("Message received");
     if (request.action === 'generateEmail') {
         generateEmail()
             .then(generatedEmail => {

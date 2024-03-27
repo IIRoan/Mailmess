@@ -3,7 +3,6 @@ import { InputField, Toggle, IconButton, Icon, Size } from '@skiff-org/skiff-ui'
 import './styles.css';
 
 function EmailGenerator() {
-    console.log("Main file Loaded");
     // State to track the current tab's domain
     const [domain, setDomain] = useState('');
     // State to track if the random string toggle is on
