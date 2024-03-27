@@ -1,6 +1,6 @@
 {
   "name": "mail-extension",
-  "version": "1.21",
+  "version": "1.23",
   "private": true,
   "dependencies": {
     "@skiff-org/skiff-ui": "^1.2.5",
