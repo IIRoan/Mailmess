@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { InputField, Toggle, IconButton, Icon, Size } from '@skiff-org/skiff-ui';
-import './styles.css';
+import React, { useState, useEffect } from "react";
+import {
+  InputField,
+  Toggle,
+  IconButton,
+  Icon,
+  Size,
+} from "@skiff-org/skiff-ui";
+import "./styles.css";
 
 function EmailGenerator() {
     // State to track the current tab's domain
