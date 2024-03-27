@@ -46,19 +46,19 @@ function generateEmail() {
 
 // Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === 'generateEmail') {
-        generateEmail()
-            .then(generatedEmail => {
-                // Send the generated email back to the content script
-                sendResponse({ email: generatedEmail });
-            })
-            .catch(error => {
-                console.error("Error generating email:", error);
-                // Send an error response back to the content script
-                sendResponse({ error: "Failed to generate email" });
-            });
-        return true; // Indicate that the response will be sent asynchronously
-    }
+  if (request.action === "generateEmail") {
+    generateEmail()
+      .then((generatedEmail) => {
+        // Send the generated email back to the content script
+        sendResponse({ email: generatedEmail });
+      })
+      .catch((error) => {
+        console.error("Error generating email:", error);
+        // Send an error response back to the content script
+        sendResponse({ error: "Failed to generate email" });
+      });
+    return true; // Indicate that the response will be sent asynchronously
+  }
 });
 // Add an empty export statement to mark the file as a module
 export {};
