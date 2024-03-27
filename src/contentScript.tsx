@@ -40,7 +40,7 @@ function modifyEmailInputs() {
     img.addEventListener("click", () => {
       // Send a message to the background script to generate an email
       chrome.runtime.sendMessage({ action: "generateEmail" }, (response) => {
-        if (response && response.email) {
+        if (response?.email) {
           inputField.value = response.email;
         }
       });
