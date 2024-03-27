@@ -22,6 +22,30 @@ function EmailGenerator() {
     // State to hold the error message underneath input
     const [errorMessage, setErrorMessage] = useState("");
 
+    // Helper function to generate a random alphanumeric string
+    const generateRandomString = (length: number) => {
+        const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let text = '';
+        for (let i = 0; i < length; i++) {
+            text += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+        }
+        return text;
+    };
+
+    // Handler for changes in the email suffix input field
+    const handleEmailSuffixChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmailSuffix(event.target.value);
+        setErrorMessage(""); // Clear error message on input change
+    };
+
+    // Helper function to validate the email
+    const validateEmail = (email: string) => {
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        return emailRegex.test(email);
+    };
+
+
+
     // Effect hook to update local storage when the toggle state changes
     useEffect(() => {
         localStorage.setItem('isRandomStringEnabled', JSON.stringify(isRandomStringEnabled));
@@ -55,11 +79,11 @@ function EmailGenerator() {
             if (tabs.length > 0 && tabs[0].url) {
                 const parsedUrl = new URL(tabs[0].url);
                 let hostname = parsedUrl.hostname;
-            
+
                 // Attempt to extract the main part of the domain
                 const domainParts = hostname.split('.');
                 let mainPart = domainParts.slice(-2, -1)[0]; // This attempts to get the second last part of the domain
-            
+
                 // This simple approach has limitations and may not work correctly for all domain structures
                 setDomain(mainPart);
             }
@@ -70,11 +94,6 @@ function EmailGenerator() {
         getActiveTabHostname();
     }, []);
 
-    // Handler for changes in the email suffix input field
-    const handleEmailSuffixChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmailSuffix(event.target.value);
-        setErrorMessage(""); // Clear error message on input change
-    };
 
     // Function to save the email when the button is clicked
     const saveGeneratedEmail = () => {
@@ -92,22 +111,6 @@ function EmailGenerator() {
         } else {
             setErrorMessage("Invalid E-Mail suffix");
         }
-    };
-
-    // Helper function to validate the email
-    const validateEmail = (email: string) => {
-        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-        return emailRegex.test(email);
-    };
-
-    // Helper function to generate a random alphanumeric string
-    const generateRandomString = (length: number) => {
-        const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let text = '';
-        for (let i = 0; i < length; i++) {
-            text += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
-        }
-        return text;
     };
 
     // Function to copy the generated email to clipboard

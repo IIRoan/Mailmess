@@ -1,10 +1,15 @@
+// Create a MutationObserver to watch for changes in the DOM
+const observer = new MutationObserver(() => {
+    modifyEmailInputs();
+});
+
 
 // Define a function to check for email input fields and modify them
 function modifyEmailInputs() {
     observer.disconnect();
 
     // Find all email input fields
-    const emailFields = document.querySelectorAll('input[type="email"], [aria-label="email"]');
+    const emailFields = document.querySelectorAll('input[type="email"], [aria-label="email"], #email, [name="email"]');
 
     emailFields.forEach((emailField: Element) => {
         // Assert the type of emailField to HTMLInputElement
@@ -50,12 +55,6 @@ function modifyEmailInputs() {
 
     observer.observe(document.body, { childList: true, subtree: true });
 }
-
-// Create a MutationObserver to watch for changes in the DOM
-const observer = new MutationObserver((mutationsList, observer) => {
-    modifyEmailInputs();
-});
-
 // Start observing the document with the configured parameters
 observer.observe(document.body, { childList: true, subtree: true });
 
