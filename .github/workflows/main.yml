@@ -1,7 +1,9 @@
 name: Build and Package Firefox Extension
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      -main
 
 jobs:
   build:
@@ -37,5 +39,5 @@ jobs:
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: MailMess1.12
+        name: MailMess1.23
         path: web-ext-artifacts/
