@@ -1,6 +1,7 @@
 name: Build and Package Firefox Extension
 
 on:
+  workflow_dispatch:
   push:
     branches:
       -main
