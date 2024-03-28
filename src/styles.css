@@ -71,18 +71,17 @@ img {
   animation: copiedAnimation 1s;
 }
 
-
 /*fade-in animation */
 @keyframes fadeIn {
   from {
-     opacity: 0;
+    opacity: 0;
   }
   to {
-     opacity: 1;
+    opacity: 1;
   }
- }
- 
- /* Apply the fade-in animation*/
- body {
+}
+
+/* Apply the fade-in animation*/
+body {
   animation: fadeIn 0.2s ease-in forwards;
- }
+}

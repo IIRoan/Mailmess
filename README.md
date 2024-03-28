@@ -53,8 +53,8 @@ npm run build
 cd dist
 web-ext build
 ```
-Use web-ext run inside /dist to try it out
 
+Use web-ext run inside /dist to try it out
 
 ## Contributing
 

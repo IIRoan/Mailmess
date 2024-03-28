@@ -4,10 +4,10 @@ import { AppThemeProvider } from "@skiff-org/skiff-ui";
 
 function App() {
   return (
-       <AppThemeProvider>
-         <Dropdown />
-         <Footer />
-       </AppThemeProvider>
+    <AppThemeProvider>
+      <Dropdown />
+      <Footer />
+    </AppThemeProvider>
   );
- }
+}
 export default App;
