@@ -15,7 +15,8 @@ MailMess is a browser extension that automatically generates email aliases for t
 
 - **Easy**: Quickly generate a new email for each website
 - **Customizable**: Choose if you want to add random string to a catch all adress
-
+- **Automatic**: When registering on a website, an icon appears that when clicks fills the email with a generated email using the rules set in the dropdown
+  
 ## Usage
 
 After installing the extension, you can start using it by:
