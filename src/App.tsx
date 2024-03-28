@@ -1,13 +1,13 @@
-import EmailGenerator from "./emailgenerator";
+import Dropdown from "./dropdown";
 import Footer from "./footer";
 import { AppThemeProvider } from "@skiff-org/skiff-ui";
 
 function App() {
   return (
-    <AppThemeProvider>
-      <EmailGenerator />
-      <Footer />
-    </AppThemeProvider>
+       <AppThemeProvider>
+         <Dropdown />
+         <Footer />
+       </AppThemeProvider>
   );
-}
+ }
 export default App;

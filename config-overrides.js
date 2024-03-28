@@ -15,7 +15,7 @@ module.exports = function override(config, env) {
   // Output
   config.output = {
     filename: "[name].js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "build"),
   };
 
   // Resolve extensions

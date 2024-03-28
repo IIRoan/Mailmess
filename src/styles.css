@@ -9,8 +9,8 @@ body {
 
 /* Main content */
 
-h1 {
-  color: #ccc;
+img {
+  width: 80px;
 }
 
 .input-container {
@@ -70,3 +70,19 @@ h1 {
 .copied {
   animation: copiedAnimation 1s;
 }
+
+
+/*fade-in animation */
+@keyframes fadeIn {
+  from {
+     opacity: 0;
+  }
+  to {
+     opacity: 1;
+  }
+ }
+ 
+ /* Apply the fade-in animation*/
+ body {
+  animation: fadeIn 0.2s ease-in forwards;
+ }

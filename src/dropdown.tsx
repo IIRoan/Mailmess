@@ -140,7 +140,7 @@ function EmailGenerator() {
   return (
     <>
       <header className="mainbody">
-        <h1>MailMess</h1>
+        <img src="static/logo192.png" alt="MailMess Logo"></img>
 
         <div className="input-container">
           <InputField

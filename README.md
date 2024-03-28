@@ -46,6 +46,16 @@ Start the Development Server:
 npm start
 ```
 
+Build to final:
+
+```bash
+npm run build
+cd dist
+web-ext build
+```
+Use web-ext run inside /dist to try it out
+
+
 ## Contributing
 
 We welcome contributions from the community. If you would like to contribute, please fork the repository, make your changes, and submit a pull request.
