@@ -51,7 +51,7 @@ Build to final:
 
 ```bash
 npm run build
-cd dist
+cd build
 web-ext build
 ```
 
