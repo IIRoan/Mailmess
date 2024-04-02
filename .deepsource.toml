@@ -4,10 +4,4 @@ version = 1
 name = "javascript"
 
   [analyzers.meta]
-  plugins = [
-    "react",
-    "vue"
-  ]
-
-[[transformers]]
-name = "prettier"
+  plugins = ["react"]
