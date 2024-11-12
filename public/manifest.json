@@ -15,22 +15,6 @@
       "tabs",
       "activeTab"
    ],
-   "content_scripts": [
-      {
-         "matches": [
-            "<all_urls>"
-         ],
-         "js": [
-            "contentScript.js"
-         ]
-      }
-   ],
-   "background": {
-      "scripts": [
-         "backgroundScript.js"
-      ],
-      "persistent": false
-   },
    "browser_specific_settings": {
       "gecko": {
          "id": "{bc860d9f-a21a-4b3a-815a-162cb848badb}"

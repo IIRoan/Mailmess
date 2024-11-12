@@ -39,6 +39,7 @@ Install Dependencies:
 ```bash
 cd Mailmess
 npm install
+npm install --global web-ext
 ```
 
 Start the Development Server:

@@ -8,8 +8,6 @@ module.exports = function override(config, env) {
   // Entry points
   config.entry = {
     main: "./src/index.tsx",
-    contentScript: "./src/contentScript.tsx",
-    backgroundScript: "./src/backgroundScript.tsx",
   };
 
   // Output
