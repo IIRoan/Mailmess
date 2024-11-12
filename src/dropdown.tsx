@@ -131,9 +131,11 @@ function EmailGenerator() {
 
         setDomain(mainPart);
 
-        // Get the favicon URL
-        if (tabs[0].favIconUrl) {
+        // Get the favicon URL and ensure it's valid
+        if (tabs[0].favIconUrl && tabs[0].favIconUrl !== 'undefined') {
           setFaviconUrl(tabs[0].favIconUrl);
+        } else {
+          setFaviconUrl(""); // Set to null if no valid favicon
         }
       }
     });
