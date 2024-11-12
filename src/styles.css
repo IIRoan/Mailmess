@@ -5,12 +5,16 @@
 
 body {
   background-color: rgb(39, 37, 37);
+  width: 350px;
 }
+
 
 /* Main content */
 
-img {
-  width: 80px;
+/* Styles for the title */
+.title {
+  color: gray; 
+  margin-bottom: 24px;
 }
 
 .input-container {
@@ -85,3 +89,4 @@ img {
 body {
   animation: fadeIn 0.2s ease-in forwards;
 }
+
