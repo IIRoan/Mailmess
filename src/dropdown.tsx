@@ -18,17 +18,25 @@ import "./styles.css";
 function EmailGenerator() {
   // State to track the current tab's domain
   const [domain, setDomain] = useState("");
-  // State to hold the email suffix entered by the user
-  const [emailSuffix, setEmailSuffix] = useState("");
+
+  // Initialize emailSuffix from localStorage
+  const [emailSuffix, setEmailSuffix] = useState(() => {
+    return localStorage.getItem("emailSuffix") || "";
+  });
+
   // State to hold the complete generated email
   const [generatedEmail, setGeneratedEmail] = useState("");
+
   // State to hold if generated email is copied
   const [isCopied, setIsCopied] = useState(false);
+
   // State to change copy icon
   const [animationTrigger, setAnimationTrigger] = useState(false);
   const [icon, setIcon] = useState(Icon.Copy);
+
   // State to hold the error message underneath input
   const [errorMessage, setErrorMessage] = useState("");
+
   // State to hold the random string length
   const [randomStringLength, setRandomStringLength] = useState(() => {
     const savedLength = localStorage.getItem("randomStringLength");
@@ -36,10 +44,11 @@ function EmailGenerator() {
   });
 
   // State to hold the favicon URL
-  const [faviconUrl, setFaviconUrl] = useState('');
+  const [faviconUrl, setFaviconUrl] = useState("");
 
   // Reference for the dropdown button
   const buttonRef = useRef(null);
+
   // State to control the visibility of the dropdown
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -80,13 +89,8 @@ function EmailGenerator() {
     return text;
   };
 
-
-
-
   // Handler for changes in the email suffix input field
-  const handleEmailSuffixChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleEmailSuffixChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setEmailSuffix(event.target.value);
     setErrorMessage(""); // Clear error message on input change
   };
@@ -114,7 +118,6 @@ function EmailGenerator() {
     }
   }, [animationTrigger]);
 
-
   // Function to get the hostname and favicon of the currently active tab
   const getActiveTabHostname = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -135,6 +138,7 @@ function EmailGenerator() {
       }
     });
   };
+
   // Call getActiveTabHostname when the component mounts
   useEffect(() => {
     getActiveTabHostname();
@@ -156,7 +160,7 @@ function EmailGenerator() {
 
     const fullEmail = `${domain}${randomSuffix}${domainAndSubdomain}`;
     if (validateEmail(fullEmail)) {
-      localStorage.setItem("emailSuffix", domainAndSubdomain);
+      localStorage.setItem("emailSuffix", emailSuffix); // Save the actual emailSuffix
       setGeneratedEmail(fullEmail);
     } else {
       setErrorMessage("Invalid email suffix");
@@ -176,18 +180,12 @@ function EmailGenerator() {
 
   // Effect hook to update generated email whenever dependencies change
   useEffect(() => {
-    const storedSuffix = localStorage.getItem("emailSuffix");
-    let suffix = emailSuffix;
-    if (storedSuffix) {
-      suffix = storedSuffix;
-      setEmailSuffix(storedSuffix);
-    }
     const randomSuffix =
       randomStringLength > 0
         ? `-${generateRandomString(randomStringLength)}`
         : "";
     const domainPartRegex = /@([^.]+)\.(.*)/;
-    const matches = suffix.match(domainPartRegex);
+    const matches = emailSuffix.match(domainPartRegex);
     let domainAndSubdomain = "";
     if (matches && matches.length >= 3) {
       domainAndSubdomain = `@${matches[1]}.${matches[2]}`;
@@ -202,7 +200,6 @@ function EmailGenerator() {
     (option) => option.value === randomStringLength
   );
 
-
   return (
     <>
       <header className="mainbody">
@@ -212,11 +209,11 @@ function EmailGenerator() {
             src={faviconUrl}
             alt="favicon"
             style={{
-              position: 'absolute',
-              top: '8px',
-              right: '8px',
-              width: '16px',
-              height: '16px',
+              position: "absolute",
+              top: "8px",
+              right: "8px",
+              width: "16px",
+              height: "16px",
             }}
           />
         )}
@@ -276,7 +273,7 @@ function EmailGenerator() {
                     <IconText
                       startIcon={option.icon}
                       label={option.label}
-                      color='white'
+                      color="white"
                     />
                   }
                   onClick={() => {
@@ -296,4 +293,5 @@ function EmailGenerator() {
     </>
   );
 }
+
 export default EmailGenerator;
