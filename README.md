@@ -7,6 +7,8 @@
 
 MailMess is a browser extension that automatically generates email aliases for the website you are currently on. You can use email maskers and relays such as Firefox Relay, Addy.io or SimpleLogin
 
+
+Due to recent Mozzila privacy changes i have delete my Mozzila account and thus also the addon.
 <a href="https://addons.mozilla.org/en-US/firefox/addon/mailmess/">
   <img src="public/badge.png" alt="Download on addons store"></img>
 </a>
